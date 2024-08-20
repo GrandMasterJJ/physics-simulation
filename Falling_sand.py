@@ -16,7 +16,8 @@ zvals = np.zeros((graph_row_size, graph_col_size))
 # init the first block
 #zvals[0, 5] = 1
 # initialize the first block
-zvals[0, graph_middle_col] = 1
+zvals[0, graph_middle_col - 10] = 1
+zvals[0, graph_middle_col + 5*random.choice([1, -1])] = 1
 # zvals[10, 4] = 1
 # zvals[9, 5] = 1
 # zvals[10, 6] = 1
@@ -24,7 +25,8 @@ def updatePlot(time):
     global zvals, img, current_col
 
     # Initialize the falling grain at the top
-    zvals[0, graph_middle_col] = 1
+    zvals[0, graph_middle_col - 10] = 1
+    zvals[0, graph_middle_col + 5*random.choice([1, -1])] = 1
     
     # Create a temporary buffer for the new positions
     new_zvals = zvals.copy()
@@ -61,6 +63,8 @@ def updatePlot(time):
 
 
 
+
+
 # make a color map of fixed colors
 cmap = mpl.colors.ListedColormap(['white', 'blue','black'])
 
@@ -75,13 +79,13 @@ ax.set_yticks(np.arange(-0.5, graph_col_size, 1), minor=True)
 # Disable x and y ticks
 ax.tick_params(which='both', bottom=False, left=False, labelbottom=False, labelleft=False)
 
-ax.grid(which='minor', color='k', linestyle='-', linewidth=0.5)
+#ax.grid(which='minor', color='k', linestyle='-', linewidth=0.5)
 
 def start(event):
     global anim_running, t
     anim_running = True
     while anim_running:
-        plt.pause(0.001)  # Adjust the pause duration as needed
+        plt.pause(0.0001)  # Adjust the pause duration as needed
         updatePlot(t)
         t += 1
 
